@@ -8,10 +8,6 @@ import PokemonImage from './PokemonImage'
 const cssPokemon = css`
   width: 25rem;
   height: 25rem;
-  position: relative;
-  &:not(:last-child) {
-    margin-right: 12rem;
-  }
 `
 
 const cssCardModal = (theme) => css`
@@ -46,29 +42,35 @@ const Pokemon = ({
   name,
   owned
 }) => {
-  const cardModalRef = useRef()
+  const pokemonRef = useRef()
   const [showModal, setShowModal] = useState(false)
   const theme = useTheme()
 
-  // listen event click -> if click outside cardModal, close cardModal
+  // listen event click -> if click outside pokemon, close cardModal
   useEffect(() => {
     const closeOnClickOutside = (e) => {
-      const div = cardModalRef.current;
+      const div = pokemonRef.current
       if (div && !div.contains(e.target)) setShowModal(false)
     }
-    if (showModal) document.addEventListener('click', closeOnClickOutside);
-    else document.removeEventListener('click', closeOnClickOutside);
-    return () => {
-      if (showModal) document.removeEventListener('click', closeOnClickOutside);
-    };
-  }, [showModal]);
+    document.addEventListener('click', closeOnClickOutside)
+    return () => document.removeEventListener('click', closeOnClickOutside)
+  }, [])
 
   return (
-    <button css={cssPokemon} onClick={() => setShowModal(true)}>
-      <PokemonImage image={image} name={name} />
+    <div
+      ref={pokemonRef}
+      css={css`
+        position: relative;
+        &:not(:last-child) {
+          margin-right: 12rem;
+        }
+      `}
+    >
+      <button css={cssPokemon} onClick={() => setShowModal(true)}>
+        <PokemonImage image={image} name={name} />
+      </button>
 
       <div
-        ref={cardModalRef}
         css={[
           cssCardModal(theme),
           { transform: showModal ? 'scale(1)' : 'scale(0)' }
@@ -78,7 +80,7 @@ const Pokemon = ({
         <p>Owned: {owned ?? '0'}</p>
         <Button variant="primary" href="/detail">Catch</Button>
       </div>
-    </button>
+    </div>
   )
 }
 

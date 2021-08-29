@@ -13,7 +13,6 @@ const cssButton = (variant) => css`
   align-items: center;
   text-decoration: none;
   padding: 1rem;
-  text-shadow: 2px 2px 0 ${theme.colors.gray};
   color: white;
   background-color: ${theme.colors[variant]};
   text-transform: uppercase;

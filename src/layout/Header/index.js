@@ -2,13 +2,19 @@
 import { css, useTheme } from "@emotion/react"
 import { useContext } from "react"
 import Button from "../../components/Button"
+import { SET_SCROLL_POSITION } from "../../store/actionTypes"
 import { store } from "../../store/store"
 import { toAbsoluteUrl } from "../../utils/helpers/assetHelpers"
 import PlayerName from "./PlayerName"
 
 const Header = () => {
   const theme = useTheme()
-  const { state: { user } } = useContext(store)
+  const { state: { user, scroll: { containerElement } }, dispatch } = useContext(store)
+
+  // set scroll position when click my bag
+  const savePosition = () => {
+    dispatch({ type: SET_SCROLL_POSITION, payload: containerElement.current?.scrollLeft })
+  }
 
   return (
     <div css={css`
@@ -53,6 +59,7 @@ const Header = () => {
           width: 100%;
           text-shadow: 2px 2px 0 ${theme.colors.gray};
         `}
+        onClick={savePosition}
       >
         MY BAG
       </Button>

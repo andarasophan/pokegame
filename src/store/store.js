@@ -3,7 +3,11 @@ import { getLocalStorage, saveLocalStorage } from '../utils/helpers/storageHelpe
 import { reducer } from './reducer'
 
 const initialState = {
-  user: getLocalStorage('user')
+  user: getLocalStorage('user'),
+  scroll: {
+    position: 0,
+    containerElement: null
+  }
 }
 
 const store = createContext(initialState)
@@ -12,6 +16,7 @@ const { Provider } = store
 const StoreProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  // only watch state user
   // set persist state user to localstorage
   useEffect(() => {
     saveLocalStorage('user', state.user)

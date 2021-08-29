@@ -5,6 +5,7 @@ import { cssPixelBorder } from '../../styles/styles'
 import Button from '../../components/Button'
 import PokemonImage from '../../components/PokemonImage'
 import { store } from '../../store/store'
+import { SET_SCROLL_POSITION } from '../../store/actionTypes'
 
 const cssPokemon = css`
   width: 25rem;
@@ -42,7 +43,7 @@ const Pokemon = ({
   image,
   name
 }) => {
-  const { state: { user: { pokemons: myPokemons = [] } = {} } } = useContext(store)
+  const { state: { user: { pokemons: myPokemons = [] } = {}, scroll: { containerElement } }, dispatch } = useContext(store)
   const theme = useTheme()
   const pokemonRef = useRef()
   const [showModal, setShowModal] = useState(false)
@@ -58,6 +59,11 @@ const Pokemon = ({
     document.addEventListener('click', closeOnClickOutside)
     return () => document.removeEventListener('click', closeOnClickOutside)
   }, [])
+
+  // set scroll position when click catch pokemon
+  const savePosition = () => {
+    dispatch({ type: SET_SCROLL_POSITION, payload: containerElement.current?.scrollLeft })
+  }
 
   return (
     <div
@@ -81,7 +87,7 @@ const Pokemon = ({
       >
         <h5>{name}</h5>
         <p>Owned: {totalOwned}</p>
-        <Button variant="primary" href={`/detail/${name}`}>Catch</Button>
+        <Button variant="primary" href={`/detail/${name}`} onClick={savePosition}>Catch</Button>
       </div>
     </div>
   )

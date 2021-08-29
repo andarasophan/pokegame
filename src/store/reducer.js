@@ -1,4 +1,4 @@
-import { ADD_POKEMON, REMOVE_POKEMON, SET_USER_NAME } from "./actionTypes"
+import { ADD_POKEMON, REMOVE_POKEMON, SET_CONTAINER_SCROLL_ELEMENT, SET_SCROLL_POSITION, SET_USER_NAME } from "./actionTypes"
 
 export const reducer = (state, action) => {
   // handle if pokemons null or undefined
@@ -27,6 +27,22 @@ export const reducer = (state, action) => {
         user: {
           ...state.user,
           pokemons: prevPokemon.filter(el => el.nickname !== action.payload)
+        }
+      }
+    case SET_CONTAINER_SCROLL_ELEMENT:
+      return {
+        ...state,
+        scroll: {
+          ...state.scroll,
+          containerElement: action.payload
+        }
+      }
+    case SET_SCROLL_POSITION:
+      return {
+        ...state,
+        scroll: {
+          ...state.scroll,
+          position: action.payload
         }
       }
     default:

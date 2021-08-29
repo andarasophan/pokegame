@@ -1,10 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { useMemo } from 'react'
+import { useContext, useEffect, useMemo, useRef } from 'react'
 import Field from './Field'
 import Pokemon from './Pokemon'
 import { gql, useQuery } from "@apollo/client"
 import SplashScreen from '../SplashScreen'
+import { store } from '../../store/store'
+import { SET_CONTAINER_SCROLL_ELEMENT } from '../../store/actionTypes'
 
 const POKEMON_LIST = gql`
   query pokemons($limit: Int, $offset: Int) {
@@ -21,6 +23,9 @@ const limit = 20
 const offset = 0
 
 const Home = () => {
+  const containerRef = useRef()
+  const { state: { scroll: { position } }, dispatch } = useContext(store)
+
   const { loading, data: { pokemons: { results: items = [] } = {} } = {} } = useQuery(POKEMON_LIST, {
     variables: { limit, offset },
   })
@@ -49,10 +54,21 @@ const Home = () => {
     return result
   }, [items])
 
+  // scroll to saved position
+  useEffect(() => {
+    containerRef.current?.scrollTo(position, 0)
+  }, [position])
+
+  // set container element
+  useEffect(() => {
+    dispatch({ type: SET_CONTAINER_SCROLL_ELEMENT, payload: containerRef })
+  }, [dispatch])
+
   if (loading) return <SplashScreen />
 
   return (
     <div
+      ref={containerRef}
       css={css`
         min-height: 100vh;
         overflow-y: hidden;

@@ -8,7 +8,7 @@ import PlayerName from "./PlayerName"
 
 const Header = () => {
   const theme = useTheme()
-  const { state: { user } = {} } = useContext(store)
+  const { state: { user } } = useContext(store)
 
   return (
     <div css={css`

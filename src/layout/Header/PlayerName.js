@@ -11,7 +11,7 @@ const playerNameWidth = 190
 const defaultName = 'Mr. Collector'
 
 const PlayerName = () => {
-  const { state: { user } = {}, dispatch } = useContext(store)
+  const { state: { user }, dispatch } = useContext(store)
   const [edit, setEdit] = useState(false)
 
   const handleSubmit = (value) => {

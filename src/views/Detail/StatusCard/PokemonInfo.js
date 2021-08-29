@@ -8,7 +8,7 @@ import { mq } from '../../../utils/helpers/mediaQueryHelper'
 
 const PokemonInfo = memo(({ pokemon }) => {
   const theme = useTheme()
-  const { state: { user: { pokemons: myPokemons = [] } = {} } = {} } = useContext(store)
+  const { state: { user: { pokemons: myPokemons = [] } = {} } } = useContext(store)
 
   const totalOwned = useMemo(() => myPokemons.filter(el => el.id === pokemon.id).length, [myPokemons, pokemon])
 

@@ -18,7 +18,7 @@ const SuccessForm = ({
   onCancel
 }) => {
   const theme = useTheme()
-  const { state: { user: { pokemons: myPokemons = [] } = {} } = {} } = useContext(store)
+  const { state: { user: { pokemons: myPokemons = [] } = {} } } = useContext(store)
   const inputRef = useRef()
   const { register, handleSubmit, formState: { errors }, setError } = useForm({
     mode: 'onChange',

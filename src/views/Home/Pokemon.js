@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react'
-import { useEffect, useRef, useState } from 'react'
-import { cssPixelBorder } from '../styles/styles'
-import Button from './Button'
-import PokemonImage from './PokemonImage'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { cssPixelBorder } from '../../styles/styles'
+import Button from '../../components/Button'
+import PokemonImage from '../../components/PokemonImage'
+import { store } from '../../store/store'
 
 const cssPokemon = css`
   width: 25rem;
@@ -32,7 +33,7 @@ const cssCardModal = (theme) => css`
   p {
     color: ${theme.colors.gray};
   }
-  a {
+  a, button {
     width: 100%;
     margin-top: 2rem;
   }
@@ -40,11 +41,14 @@ const cssCardModal = (theme) => css`
 const Pokemon = ({
   image,
   name,
-  owned
+  id
 }) => {
+  const { state: { user: { pokemons: myPokemons = [] } = {} } } = useContext(store)
+  const theme = useTheme()
   const pokemonRef = useRef()
   const [showModal, setShowModal] = useState(false)
-  const theme = useTheme()
+
+  const totalOwned = useMemo(() => myPokemons.filter(el => el.id === id).length, [myPokemons, id])
 
   // listen event click -> if click outside pokemon, close cardModal
   useEffect(() => {
@@ -77,8 +81,8 @@ const Pokemon = ({
         ]}
       >
         <h5>{name}</h5>
-        <p>Owned: {owned ?? '0'}</p>
-        <Button variant="primary" href="/detail">Catch</Button>
+        <p>Owned: {totalOwned}</p>
+        <Button variant="primary" href={`/detail/${id}`}>Catch</Button>
       </div>
     </div>
   )

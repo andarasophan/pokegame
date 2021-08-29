@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { toAbsoluteUrl } from '../utils/helpers/assetHelpers'
+import { toAbsoluteUrl } from '../../utils/helpers/assetHelpers'
 
 const Field = ({ children }) => {
   return (

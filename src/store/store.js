@@ -9,7 +9,7 @@ const initialState = {
 const store = createContext(initialState)
 const { Provider } = store
 
-const AppProvider = ({ children }) => {
+const StoreProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   // set persist state user to localstorage
@@ -20,4 +20,4 @@ const AppProvider = ({ children }) => {
   return <Provider value={{ state, dispatch }}>{children}</Provider>
 }
 
-export { store, AppProvider }
+export { store, StoreProvider }

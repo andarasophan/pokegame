@@ -30,7 +30,7 @@ const Modal = ({
     }
     else {
       clearTimeout(animationEntering)
-      setCondition('EXIT')
+      setCondition(prev => !prev ? 'EXITED' : 'EXIT')
       animationExiting = setTimeout(() => {
         setCondition('EXITED')
       }, duration)

@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { PencilIcon } from '../../assets/icons'
+import { SET_USER_NAME } from '../../store/actionTypes'
+import { store } from '../../store/store'
 
 const playerNameHeight = 24
 const playerNameWidth = 190
@@ -9,11 +11,12 @@ const playerNameWidth = 190
 const defaultName = 'Mr. Collector'
 
 const PlayerName = () => {
+  const { state: { user } = {}, dispatch } = useContext(store)
   const [edit, setEdit] = useState(false)
 
   const handleSubmit = (value) => {
     setEdit(false)
-    console.log(value)
+    dispatch({ type: SET_USER_NAME, payload: value })
   }
 
   return (
@@ -25,12 +28,12 @@ const PlayerName = () => {
         edit ?
           <Form
             onSubmit={handleSubmit}
-            initialValue={defaultName}
+            initialValue={user?.name}
           />
           :
           <View
             onClickEdit={() => setEdit(true)}
-            name={defaultName}
+            name={user?.name ?? defaultName}
           />
       }
     </div>

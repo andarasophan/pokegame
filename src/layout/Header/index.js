@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react"
+import { useContext } from "react"
 import Button from "../../components/Button"
+import { store } from "../../store/store"
 import { toAbsoluteUrl } from "../../utils/helpers/assetHelpers"
 import PlayerName from "./PlayerName"
 
 const Header = () => {
   const theme = useTheme()
+  const { state: { user } = {} } = useContext(store)
 
   return (
     <div css={css`
@@ -39,7 +42,7 @@ const Header = () => {
         />
         <div>
           <PlayerName />
-          <p css={{ fontSize: 10, height: 16 }}>Pokemon owned: <span css={{ color: theme.colors.secondary }}>0</span></p>
+          <p css={{ fontSize: 10, height: 16 }}>Pokemon owned: <span css={{ color: theme.colors.secondary }}>{user?.pokemons?.length ?? 0}</span></p>
         </div>
       </div>
       <Button

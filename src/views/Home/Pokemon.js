@@ -40,15 +40,14 @@ const cssCardModal = (theme) => css`
 `
 const Pokemon = ({
   image,
-  name,
-  id
+  name
 }) => {
   const { state: { user: { pokemons: myPokemons = [] } = {} } } = useContext(store)
   const theme = useTheme()
   const pokemonRef = useRef()
   const [showModal, setShowModal] = useState(false)
 
-  const totalOwned = useMemo(() => myPokemons.filter(el => el.id === id).length, [myPokemons, id])
+  const totalOwned = useMemo(() => myPokemons.filter(el => el.name === name).length, [myPokemons, name])
 
   // listen event click -> if click outside pokemon, close cardModal
   useEffect(() => {
@@ -82,7 +81,7 @@ const Pokemon = ({
       >
         <h5>{name}</h5>
         <p>Owned: {totalOwned}</p>
-        <Button variant="primary" href={`/detail/${id}`}>Catch</Button>
+        <Button variant="primary" href={`/detail/${name}`}>Catch</Button>
       </div>
     </div>
   )

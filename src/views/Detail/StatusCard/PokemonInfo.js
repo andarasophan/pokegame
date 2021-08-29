@@ -10,7 +10,7 @@ const PokemonInfo = memo(({ pokemon }) => {
   const theme = useTheme()
   const { state: { user: { pokemons: myPokemons = [] } = {} } } = useContext(store)
 
-  const totalOwned = useMemo(() => myPokemons.filter(el => el.id === pokemon.id).length, [myPokemons, pokemon])
+  const totalOwned = useMemo(() => myPokemons.filter(el => el.name === pokemon.name).length, [myPokemons, pokemon])
 
   return (
     <div css={css`

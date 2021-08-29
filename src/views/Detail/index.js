@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react'
 import { useCallback, useContext, useState } from 'react'
-import { useHistory } from 'react-router'
+import { useHistory, useRouteMatch } from 'react-router'
 import { toast } from 'react-toastify'
 import Button from '../../components/Button'
 import Modal from '../../components/Modal'
@@ -10,20 +10,49 @@ import Grass from './Grass'
 import HitEffect from './HitEffect'
 import Pokeball from './Pokeball'
 import SuccessForm from './SuccessForm'
-import pokemon from './dummyData.json'
 import StatusCard from './StatusCard'
 import useWindowSize from '../../hooks/useWindowSize'
 import { store } from '../../store/store'
 import { ADD_POKEMON } from '../../store/actionTypes'
+import { gql, useQuery } from "@apollo/client"
 
 const ballAnimation = 500
 const hitEffectAnimation = 100
 
+const POKEMON_DETAIL = gql`
+  query pokemon($pokemonName: String!) {
+    pokemon(name: $pokemonName) {
+      name
+      sprites {
+        front_default
+      }
+      stats {
+        base_stat
+        stat {
+          name
+        }
+      }
+      moves {
+        move {
+          id
+          name
+        }
+      }
+    }
+  }
+`
+
 const Detail = () => {
+  const { params: { name } } = useRouteMatch()
+
+  const { loading, data: { pokemon } = {} } = useQuery(POKEMON_DETAIL, {
+    variables: { pokemonName: name },
+  })
+
   const theme = useTheme()
   const { push } = useHistory()
   const { dispatch } = useContext(store)
-  const [loading, setLoading] = useState(false)
+  const [catching, setCatching] = useState(false)
 
   const [moveBall, setMoveBall] = useState(false)
   const [hideBall, setHideBall] = useState(false)
@@ -68,7 +97,7 @@ const Detail = () => {
         toast('Pokemon Released..')
         //reset
         reset()
-        setLoading(false)
+        setCatching(false)
       })
   }
 
@@ -84,8 +113,8 @@ const Detail = () => {
   }
 
   const throwBall = () => {
-    if (loading) return
-    setLoading(true)
+    if (catching) return
+    setCatching(true)
     // move ball animation
     setMoveBall(true)
     setTimeout(() => {
@@ -117,7 +146,7 @@ const Detail = () => {
                       toast('Pokemon Broke Free!')
                       //reset
                       reset()
-                      setLoading(false)
+                      setCatching(false)
                     })
                 } else { // success
                   setSuccessModal(true)
@@ -129,6 +158,8 @@ const Detail = () => {
       }, hitEffectAnimation);
     }, ballAnimation);
   }
+
+  if (loading) return <p>loading</p>
 
   return (
     <div css={css`
@@ -177,7 +208,7 @@ const Detail = () => {
           transform: translateX(-50%);
         `}
         onClick={throwBall}
-        loading={loading}
+        loading={catching}
       >
         Throw Ball
       </Button>

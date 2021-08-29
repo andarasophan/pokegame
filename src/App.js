@@ -5,24 +5,28 @@ import {
   BrowserRouter as Router,
   Route,
   Switch
-} from 'react-router-dom';
-import Home from './views/Home';
-import Detail from './views/Detail';
-import MyBag from './views/MyBag';
-import Layout from './layout/Layout';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { cssPixelBorder } from './styles/styles';
-import { StoreProvider } from './store/store';
+} from 'react-router-dom'
+import Home from './views/Home'
+import Detail from './views/Detail'
+import MyBag from './views/MyBag'
+import Layout from './layout/Layout'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { cssPixelBorder } from './styles/styles'
+import { StoreProvider } from './store/store'
 import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider
-} from "@apollo/client";
+} from "@apollo/client"
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_BASE_API,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    // if data share the same id
+    // src: https://stackoverflow.com/questions/48840223/apollo-duplicates-first-result-to-every-node-in-array-of-edges
+    dataIdFromObject: o => (o._id ? `${o.__typename}:${o._id}` : null),
+  })
 })
 
 const App = () => {
@@ -34,7 +38,7 @@ const App = () => {
             <Layout>
               <Switch>
                 <Route exact path='/' component={Home} />
-                <Route path='/detail/:id' component={Detail} />
+                <Route path='/detail/:name' component={Detail} />
                 <Route path='/my-bag' component={MyBag} />
               </Switch>
             </Layout>

@@ -3,16 +3,13 @@ import { css } from '@emotion/react'
 import { useMemo } from 'react'
 import Field from './Field'
 import Pokemon from './Pokemon'
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client"
 
 const POKEMON_LIST = gql`
   query pokemons($limit: Int, $offset: Int) {
     pokemons(limit: $limit, offset: $offset) {
-      count
       next
-      previous
       results {
-        id
         name
         image
       }
@@ -34,10 +31,9 @@ const Home = () => {
     items.forEach((el, i) => {
       pokemons.push((
         <Pokemon
-          key={`pokemon-${i}-${el.id}`}
+          key={el.name}
           image={el.image}
           name={el.name}
-          id={el.id}
         />
       ))
       if ((i + 1) % 4 === 0 || i === items.length - 1) {

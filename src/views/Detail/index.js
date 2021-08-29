@@ -78,6 +78,7 @@ const Detail = () => {
       nickname
     }
     dispatch({ type: ADD_POKEMON, payload: data })
+    toast('Yeay pokemon added!')
     // redirect to home
     push('/')
   }

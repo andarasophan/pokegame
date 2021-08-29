@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react'
-import { useCallback, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { useHistory } from 'react-router'
 import { toast } from 'react-toastify'
 import Button from '../../components/Button'
@@ -13,6 +13,8 @@ import SuccessForm from './SuccessForm'
 import pokemon from './dummyData.json'
 import StatusCard from './StatusCard'
 import useWindowSize from '../../hooks/useWindowSize'
+import { store } from '../../store/store'
+import { ADD_POKEMON } from '../../store/actionTypes'
 
 const ballAnimation = 500
 const hitEffectAnimation = 100
@@ -20,6 +22,7 @@ const hitEffectAnimation = 100
 const Detail = () => {
   const theme = useTheme()
   const { push } = useHistory()
+  const { dispatch } = useContext(store)
   const [loading, setLoading] = useState(false)
 
   const [moveBall, setMoveBall] = useState(false)
@@ -69,8 +72,12 @@ const Detail = () => {
       })
   }
 
-  const handleSubmit = (values) => {
-    console.log(values)
+  const handleSubmit = ({ nickname }) => {
+    const data = {
+      ...pokemon,
+      nickname
+    }
+    dispatch({ type: ADD_POKEMON, payload: data })
     // redirect to home
     push('/')
   }

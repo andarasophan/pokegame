@@ -1,12 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react'
-import { memo } from 'react'
+import { memo, useContext, useMemo } from 'react'
 import PokemonImage from '../../../components/PokemonImage'
+import { store } from '../../../store/store'
 import StatusEnum from '../../../utils/enums/statusEnum'
 import { mq } from '../../../utils/helpers/mediaQueryHelper'
 
 const PokemonInfo = memo(({ pokemon }) => {
   const theme = useTheme()
+  const { state: { user: { pokemons: myPokemons } = {} } = {} } = useContext(store)
+
+  const totalOwned = useMemo(() => myPokemons.filter(el => el.id === pokemon.id).length, [myPokemons, pokemon])
 
   return (
     <div css={css`
@@ -43,7 +47,7 @@ const PokemonInfo = memo(({ pokemon }) => {
           font-size: 1.2rem;
         `}>
           <p>OWNED</p>
-          <p>0</p>
+          <p>{totalOwned}</p>
         </div>
 
         <div css={{ marginBottom: 16 }}>

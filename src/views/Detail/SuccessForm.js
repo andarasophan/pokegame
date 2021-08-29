@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form'
 import Button from '../../components/Button'
 import FormInput from '../../components/FormInput'
 import * as yup from 'yup'
-import { useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { mq } from '../../utils/helpers/mediaQueryHelper'
+import { store } from '../../store/store'
 
 const schema = yup.object().shape({
   nickname: yup.string().required('Nickname is required')
@@ -17,12 +18,25 @@ const SuccessForm = ({
   onCancel
 }) => {
   const theme = useTheme()
+  const { state: { user: { pokemons: myPokemons } = {} } = {} } = useContext(store)
   const inputRef = useRef()
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors }, setError } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema)
   });
   const { ref: registerRef, ...registerProps } = register('nickname')
+
+  const submit = (values) => {
+    // if nickname already exists, set error
+    if (myPokemons.find(el => el.nickname === values.nickname)) {
+      setError('nickname', {
+        type: "manual",
+        message: "Nickname already exists",
+      })
+      return
+    }
+    if (typeof onSubmit === 'function') onSubmit(values)
+  }
 
   // focus directly when rendered
   useEffect(() => {
@@ -31,7 +45,7 @@ const SuccessForm = ({
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(submit)}
       css={css`
         padding: 0 1.6rem;
         max-height: calc(100vh - 5.2rem);

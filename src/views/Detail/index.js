@@ -1,11 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react'
 import { useCallback, useState } from 'react'
+import { useHistory } from 'react-router'
+import { toast } from 'react-toastify'
 import Button from '../../components/Button'
+import Modal from '../../components/Modal'
 import PokemonImage from '../../components/PokemonImage'
 import Grass from './Grass'
 import HitEffect from './HitEffect'
 import Pokeball from './Pokeball'
+import SuccessForm from './SuccessForm'
 import pokemon from './dummyData.json'
 
 const ballAnimation = 500
@@ -13,6 +17,7 @@ const hitEffectAnimation = 100
 
 const Detail = () => {
   const theme = useTheme()
+  const { push } = useHistory()
   const [loading, setLoading] = useState(false)
 
   const [moveBall, setMoveBall] = useState(false)
@@ -21,6 +26,8 @@ const Detail = () => {
   const [hideHitEffect, setHideHitEffect] = useState(false)
   const [hidePokemon, setHidePokemon] = useState(false)
   const [rotateBall, setRotateBall] = useState(false)
+
+  const [successModal, setSuccessModal] = useState(false)
 
   const reset = () => {
     setMoveBall(false)
@@ -45,6 +52,23 @@ const Detail = () => {
       }, hitEffectAnimation);
     })
   }, [])
+
+  const discardPokemon = () => {
+    setSuccessModal(false)
+    releasePokemon()
+      .then(() => {
+        toast('Pokemon Released..')
+        //reset
+        reset()
+        setLoading(false)
+      })
+  }
+
+  const handleSubmit = (values) => {
+    console.log(values)
+    // redirect to home
+    push('/')
+  }
 
   const throwBall = () => {
     if (loading) return
@@ -77,16 +101,13 @@ const Detail = () => {
                 if (prob < 1 / 2) { // failed
                   releasePokemon()
                     .then(() => {
-                      console.log('failed')
+                      toast('Pokemon Broke Free!')
                       //reset
                       reset()
                       setLoading(false)
                     })
                 } else { // success
-                  console.log('success')
-                  //reset
-                  reset()
-                  setLoading(false)
+                  setSuccessModal(true)
                 }
               }, ballAnimation);
             }, ballAnimation);
@@ -147,6 +168,13 @@ const Detail = () => {
       >
         Throw Ball
       </Button>
+
+      <Modal open={successModal}>
+        <SuccessForm
+          onSubmit={handleSubmit}
+          onCancel={discardPokemon}
+        />
+      </Modal>
     </div>
   )
 }

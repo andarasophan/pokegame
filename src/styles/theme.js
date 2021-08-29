@@ -7,6 +7,12 @@ const theme = {
     white: '#fff',
     dark: '#212529',
     gray: '#8a8a8a'
+  },
+  bp: {
+    sm: 540,
+    md: 720,
+    lg: 960,
+    xl: 1140
   }
 }
 

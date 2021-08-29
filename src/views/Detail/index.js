@@ -11,6 +11,8 @@ import HitEffect from './HitEffect'
 import Pokeball from './Pokeball'
 import SuccessForm from './SuccessForm'
 import pokemon from './dummyData.json'
+import StatusCard from './StatusCard'
+import useWindowSize from '../../hooks/useWindowSize'
 
 const ballAnimation = 500
 const hitEffectAnimation = 100
@@ -28,6 +30,9 @@ const Detail = () => {
   const [rotateBall, setRotateBall] = useState(false)
 
   const [successModal, setSuccessModal] = useState(false)
+  const [showStatus, setShowStatus] = useState(false)
+
+  const { width } = useWindowSize()
 
   const reset = () => {
     setMoveBall(false)
@@ -175,6 +180,13 @@ const Detail = () => {
           onCancel={discardPokemon}
         />
       </Modal>
+
+      <StatusCard
+        fixed={width > theme.bp.xl}
+        show={showStatus}
+        onToggle={() => setShowStatus(prev => !prev)}
+        pokemon={pokemon}
+      />
     </div>
   )
 }

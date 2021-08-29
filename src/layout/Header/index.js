@@ -38,7 +38,7 @@ const Header = () => {
       >
         <img
           src={toAbsoluteUrl('/assets/pokeball-colorless.png')}
-          alt="Pokeball"
+          alt=""
         />
         <div>
           <PlayerName />

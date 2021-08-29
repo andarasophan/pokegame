@@ -27,7 +27,6 @@ const PokemonInfo = memo(({ pokemon }) => {
           }
         `}
         image={pokemon.sprites.front_default}
-        name='Charmeleon'
       />
 
       <div

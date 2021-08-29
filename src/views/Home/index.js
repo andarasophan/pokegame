@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import Field from './Field'
 import Pokemon from './Pokemon'
 import { gql, useQuery } from "@apollo/client"
+import SplashScreen from '../SplashScreen'
 
 const POKEMON_LIST = gql`
   query pokemons($limit: Int, $offset: Int) {
@@ -48,6 +49,8 @@ const Home = () => {
     return result
   }, [items])
 
+  if (loading) return <SplashScreen />
+
   return (
     <div
       css={css`
@@ -56,12 +59,7 @@ const Home = () => {
         display: flex;
       `}
     >
-      {
-        loading ?
-          <p>loading</p>
-          :
-          renderFieldByFourPokemon
-      }
+      {renderFieldByFourPokemon}
     </div>
   );
 }

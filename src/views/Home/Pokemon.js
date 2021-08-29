@@ -70,7 +70,7 @@ const Pokemon = ({
       `}
     >
       <button css={cssPokemon} onClick={() => setShowModal(true)}>
-        <PokemonImage image={image} name={name} />
+        <PokemonImage image={image} />
       </button>
 
       <div

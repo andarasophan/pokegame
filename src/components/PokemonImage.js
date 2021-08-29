@@ -10,14 +10,13 @@ const cssPokemonImage = css`
 
 const PokemonImage = ({
   image,
-  name,
   className
 }) => (
   <img
     className={className}
     css={cssPokemonImage}
     src={image}
-    alt={name}
+    alt=""
   />
 )
 

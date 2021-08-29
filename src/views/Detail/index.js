@@ -15,6 +15,7 @@ import useWindowSize from '../../hooks/useWindowSize'
 import { store } from '../../store/store'
 import { ADD_POKEMON } from '../../store/actionTypes'
 import { gql, useQuery } from "@apollo/client"
+import SplashScreen from '../SplashScreen'
 
 const ballAnimation = 500
 const hitEffectAnimation = 100
@@ -159,7 +160,7 @@ const Detail = () => {
     }, ballAnimation);
   }
 
-  if (loading) return <p>loading</p>
+  if (loading) return <SplashScreen />
 
   return (
     <div css={css`
@@ -182,7 +183,6 @@ const Detail = () => {
             opacity: hidePokemon ? 0 : 1
           }}
           image={pokemon.sprites.front_default}
-          name='Charmeleon'
         />
         <Grass />
         <HitEffect

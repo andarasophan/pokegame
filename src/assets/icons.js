@@ -38,3 +38,18 @@ export const PencilIcon = ({ size = 24, className }) => (
     </g>
   </svg>
 )
+
+export const PokeballIcon = ({ size = 24, className }) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 121 121"
+    fill="currentColor"
+  >
+    <path
+      d="M410 1150v-50H210v-100H110V800H10V400h100V200h100V100h200V0h400v100h200v100h100v200h100v400h-100v200h-100v100H810v100H410v-50zm300-250V800H510v200h200V900zM310 550v-50h600v100h200V400h-100V200H810V100H410v100H210v200H110v200h200v-50z"
+      transform="matrix(.1 0 0 -.1 0 121)"
+    ></path>
+  </svg>
+)

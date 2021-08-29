@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+import { css, useTheme } from '@emotion/react'
 import { toAbsoluteUrl } from '../../utils/helpers/assetHelpers'
 
 const Field = ({ children }) => {
+  const theme = useTheme()
   return (
     <div
       css={css`
@@ -14,6 +15,7 @@ const Field = ({ children }) => {
         background-image: url(${toAbsoluteUrl('/assets/background.jpg')});
         image-rendering: pixelated;
         image-rendering: crisp-edges;
+        background-color: ${theme.colors.gray};
       `}
     >
       {children}

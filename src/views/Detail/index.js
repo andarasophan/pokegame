@@ -5,17 +5,17 @@ import { useHistory, useRouteMatch } from 'react-router'
 import { toast } from 'react-toastify'
 import Button from '../../components/Button'
 import Modal from '../../components/Modal'
-import PokemonImage from '../../components/PokemonImage'
+import PokemonImage from '../../components/templates/PokemonImage'
 import Grass from './Grass'
 import HitEffect from './HitEffect'
 import Pokeball from './Pokeball'
 import SuccessForm from './SuccessForm'
-import StatusCard from './StatusCard'
 import useWindowSize from '../../hooks/useWindowSize'
 import { store } from '../../store/store'
 import { ADD_POKEMON } from '../../store/actionTypes'
 import { gql, useQuery } from "@apollo/client"
 import SplashScreen from '../SplashScreen'
+import DetailCard from './DetailCard'
 
 const ballAnimation = 500
 const hitEffectAnimation = 100
@@ -36,6 +36,11 @@ const POKEMON_DETAIL = gql`
       moves {
         move {
           id
+          name
+        }
+      }
+      types {
+        type {
           name
         }
       }
@@ -220,7 +225,7 @@ const Detail = () => {
         />
       </Modal>
 
-      <StatusCard
+      <DetailCard
         fixed={width > theme.bp.xl}
         show={showStatus}
         onToggle={() => setShowStatus(prev => !prev)}

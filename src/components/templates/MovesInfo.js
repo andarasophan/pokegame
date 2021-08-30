@@ -2,7 +2,7 @@
 import { css, useTheme } from '@emotion/react'
 import { memo } from 'react'
 
-const Moves = memo(({ moves }) => {
+const MovesInfo = memo(({ moves }) => {
   const theme = useTheme()
 
   return (
@@ -16,7 +16,7 @@ const Moves = memo(({ moves }) => {
         MOVES
       </p>
       {
-        moves.map((el, i) => (
+        moves?.map((el, i) => (
           <p
             key={`move-${i}`}
             css={{
@@ -34,4 +34,4 @@ const Moves = memo(({ moves }) => {
   )
 })
 
-export default Moves
+export default MovesInfo

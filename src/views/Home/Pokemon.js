@@ -3,7 +3,7 @@ import { css, useTheme } from '@emotion/react'
 import { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { cssPixelBorder } from '../../styles/styles'
 import Button from '../../components/Button'
-import PokemonImage from '../../components/PokemonImage'
+import PokemonImage from '../../components/templates/PokemonImage'
 import { store } from '../../store/store'
 import { SET_SCROLL_POSITION } from '../../store/actionTypes'
 
@@ -62,7 +62,7 @@ const Pokemon = ({
 
   // set scroll position when click catch pokemon
   const savePosition = () => {
-    dispatch({ type: SET_SCROLL_POSITION, payload: containerElement.current?.scrollLeft })
+    dispatch({ type: SET_SCROLL_POSITION, payload: containerElement?.current?.scrollLeft })
   }
 
   return (

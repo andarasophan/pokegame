@@ -13,7 +13,7 @@ const Header = () => {
 
   // set scroll position when click my bag
   const savePosition = () => {
-    dispatch({ type: SET_SCROLL_POSITION, payload: containerElement.current?.scrollLeft })
+    dispatch({ type: SET_SCROLL_POSITION, payload: containerElement?.current?.scrollLeft })
   }
 
   return (

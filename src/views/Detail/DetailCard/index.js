@@ -1,14 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from '@emotion/react'
 import Button from '../../../components/Button'
-import { cssPixelBorder } from '../../../styles/styles'
-import { mq } from '../../../utils/helpers/mediaQueryHelper'
-import Moves from './Moves'
-import PokemonInfo from './PokemonInfo'
+import Content from './Content'
 
-const detailButtonWidth = '4.5rem'
+export const detailButtonWidth = '4.5rem'
 
-const StatusCard = ({
+const DetailCard = ({
   show,
   onToggle,
   pokemon,
@@ -49,7 +46,7 @@ const StatusCard = ({
           color: ${theme.colors.primary};
         `}
         >
-          <div css={css`transform: rotate(90deg);`}>Run</div>
+          <div css={css`transform: rotate(90deg);`}>Leave</div>
         </Button>
         <Button
           disabled={fixed}
@@ -60,38 +57,14 @@ const StatusCard = ({
             width: ${detailButtonWidth};
           `}
         >
-          <div css={css`transform: rotate(90deg);`}>{show && !fixed ? 'Hide' : 'Stats'}</div>
+          <div css={css`transform: rotate(90deg);`}>{show && !fixed ? 'Hide' : 'Detail'}</div>
         </Button>
       </div>
-      <div
-        css={css`
-          height: 100%;
-          background-color: ${theme.colors.white};
-          ${cssPixelBorder(theme.colors.white)}
-          max-width: calc(100vw - ${detailButtonWidth});
-          padding: 1.6rem 0;
-        `}
-      >
-        <div
-          css={css`
-            height: 100%;
-            padding: 0 1.6rem;
-            overflow-y: auto;
-            overflow-x: hidden;
-            width: 200px;
-            ${mq('sm')} {
-              width: 400px;
-            }
-          `}
-        >
-          <PokemonInfo pokemon={pokemon} />
 
-          <Moves moves={pokemon.moves} />
-        </div>
-
-      </div>
+      {/* content */}
+      <Content pokemon={pokemon} />
     </div>
   )
 }
 
-export default StatusCard
+export default DetailCard

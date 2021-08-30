@@ -3,22 +3,12 @@ import { css } from '@emotion/react'
 import { useContext, useEffect, useMemo, useRef } from 'react'
 import Field from './Field'
 import Pokemon from './Pokemon'
-import { gql, useQuery } from "@apollo/client"
+import { useQuery } from "@apollo/client"
 import SplashScreen from '../SplashScreen'
 import { store } from '../../store/store'
 import { SET_CONTAINER_SCROLL_ELEMENT } from '../../store/actionTypes'
+import { POKEMON_LIST } from '../../graphql/queries'
 
-const POKEMON_LIST = gql`
-  query pokemons($limit: Int, $offset: Int) {
-    pokemons(limit: $limit, offset: $offset) {
-      next
-      results {
-        name
-        image
-      }
-    }
-  }
-`
 const limit = 20
 const offset = 0
 

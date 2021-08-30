@@ -13,40 +13,13 @@ import SuccessForm from './SuccessForm'
 import useWindowSize from '../../hooks/useWindowSize'
 import { store } from '../../store/store'
 import { ADD_POKEMON } from '../../store/actionTypes'
-import { gql, useQuery } from "@apollo/client"
+import { useQuery } from "@apollo/client"
 import SplashScreen from '../SplashScreen'
 import DetailCard from './DetailCard'
+import { POKEMON_DETAIL } from '../../graphql/queries'
 
 const ballAnimation = 500
 const hitEffectAnimation = 100
-
-const POKEMON_DETAIL = gql`
-  query pokemon($pokemonName: String!) {
-    pokemon(name: $pokemonName) {
-      name
-      sprites {
-        front_default
-      }
-      stats {
-        base_stat
-        stat {
-          name
-        }
-      }
-      moves {
-        move {
-          id
-          name
-        }
-      }
-      types {
-        type {
-          name
-        }
-      }
-    }
-  }
-`
 
 const Detail = () => {
   const { params: { name } } = useRouteMatch()

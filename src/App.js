@@ -14,20 +14,8 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { cssPixelBorder } from './styles/styles'
 import { StoreProvider } from './store/store'
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider
-} from "@apollo/client"
-
-const client = new ApolloClient({
-  uri: process.env.REACT_APP_BASE_API,
-  cache: new InMemoryCache({
-    // if data share the same id
-    // src: https://stackoverflow.com/questions/48840223/apollo-duplicates-first-result-to-every-node-in-array-of-edges
-    dataIdFromObject: o => (o._id ? `${o.__typename}:${o._id}` : null),
-  })
-})
+import { ApolloProvider } from "@apollo/client"
+import { client } from './graphql/client'
 
 const App = () => {
   return (

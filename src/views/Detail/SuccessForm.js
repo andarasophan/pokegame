@@ -8,6 +8,8 @@ import * as yup from 'yup'
 import { useContext, useEffect, useRef } from 'react'
 import { mq } from '../../utils/helpers/mediaQueryHelper'
 import { store } from '../../store/store'
+import { cardModalPadding, modalPadding } from '../../components/Modal'
+import { pixelBorderWidth } from '../../styles/styles'
 
 const schema = yup.object().shape({
   nickname: yup.string().required('Nickname is required')
@@ -48,8 +50,8 @@ const SuccessForm = ({
       onSubmit={handleSubmit(submit)}
       css={css`
         padding: 0 1.6rem;
-        max-height: calc(100vh - 5.2rem);
-        width: calc(100vw - 2rem);
+        max-height: calc(100vh - 2 * ${cardModalPadding} - 2 * ${modalPadding});
+        width: calc(100vw - 2 * ${modalPadding} - 2 * ${pixelBorderWidth});
         overflow: auto;
 
         ${mq('sm')} {

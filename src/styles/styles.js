@@ -1,10 +1,11 @@
 import { css } from "@emotion/react";
 
 //export reusable css
+export const pixelBorderWidth = '4px';
 
 export const cssPixelBorder = (color) => css`
   border-style: solid;
-  border-width: 4px;
+  border-width: ${pixelBorderWidth};
   border-color: ${color};
   border-image-slice: 2;
   border-image-width: 1;

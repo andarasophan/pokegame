@@ -53,3 +53,18 @@ export const PokeballIcon = ({ size = 24, className }) => (
     ></path>
   </svg>
 )
+
+export const BackIcon = ({ size = 24, className }) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 840 859"
+    fill="currentColor"
+  >
+    <path
+      d="M2108 6453L0 4347v-92l2105-2105C3263 992 4213 43 4216 40c7-6 744 732 744 746 0 6-652 661-1450 1456-797 795-1446 1448-1443 1452 4 3 1430 6 3170 6h3163v1210H5235c-1741 0-3165 4-3165 8 0 5 650 655 1445 1446s1445 1443 1445 1450c0 10-730 746-740 746-3 0-953-948-2112-2107z"
+      transform="matrix(.1 0 0 -.1 0 859)"
+    ></path>
+  </svg>
+)

@@ -4,6 +4,9 @@ import { css, useTheme } from '@emotion/react'
 import { useCallback, useEffect, useState } from 'react'
 import { cssPixelBorder } from '../styles/styles'
 
+export const modalPadding = '1rem'
+export const cardModalPadding = '1.6rem'
+
 const Modal = ({
   children,
   onClose,
@@ -64,8 +67,8 @@ const Modal = ({
             transition: `transform ${duration}ms ease-in-out`
           }}
           css={css`
-            max-width: calc(100vw - 2rem);
-            max-height: calc(100vh - 2rem);
+            max-width: calc(100vw - 2 * ${modalPadding});
+            max-height: calc(100vh - 2 * ${modalPadding});
             overflow: hidden;
             padding: 1.6rem 0;
             background-color: ${theme.colors.white};

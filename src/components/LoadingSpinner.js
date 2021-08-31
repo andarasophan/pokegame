@@ -31,6 +31,7 @@ const LoadingSpinner = ({ className, size, color = 'primary' }) => {
       className={className}
     >
       <Spinner
+        data-testid="loading-spinner"
         size={size}
         css={css`
           display: block;

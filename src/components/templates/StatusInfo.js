@@ -7,6 +7,7 @@ const StatusInfo = ({ className, stats = [] }) => (
     {
       stats.map(el => (
         <div
+          key={el.stat.name}
           css={css`
             display: flex;
             justify-content: space-between;

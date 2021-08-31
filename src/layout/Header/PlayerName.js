@@ -16,7 +16,7 @@ const PlayerName = () => {
 
   const handleSubmit = (value) => {
     setEdit(false)
-    dispatch({ type: SET_USER_NAME, payload: value })
+    if (value) dispatch({ type: SET_USER_NAME, payload: value })
   }
 
   return (

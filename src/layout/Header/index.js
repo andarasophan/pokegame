@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, useTheme } from "@emotion/react"
 import { useContext } from "react"
+import { useLocation } from "react-router"
 import Button from "../../components/Button"
 import { SET_SCROLL_POSITION } from "../../store/actionTypes"
 import { store } from "../../store/store"
@@ -10,9 +11,12 @@ import PlayerName from "./PlayerName"
 const Header = () => {
   const theme = useTheme()
   const { state: { user, scroll: { containerElement } }, dispatch } = useContext(store)
+  const location = useLocation()
 
   // set scroll position when click my bag
   const savePosition = () => {
+    // only save when clicked on '/' page aka Home
+    if (location.pathname !== '/') return
     dispatch({ type: SET_SCROLL_POSITION, payload: containerElement?.current?.scrollLeft })
   }
 

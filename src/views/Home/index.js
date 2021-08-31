@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react'
-import { useContext, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
+import { useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import Field from './Field'
 import Pokemon from './Pokemon'
 import { NetworkStatus, useQuery } from "@apollo/client"
@@ -9,12 +9,27 @@ import { store } from '../../store/store'
 import { SET_CONTAINER_SCROLL_ELEMENT } from '../../store/actionTypes'
 import { POKEMON_LIST } from '../../graphql/queries'
 import LoadingSpinner from '../../components/LoadingSpinner'
+import { LeftArrow, RightArrow } from '../../assets/icons'
+import theme from '../../styles/theme'
+import useWindowSize from '../../hooks/useWindowSize'
 
 const limit = 20
+
+const cssButtonScroll = css`
+  position: fixed;
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  color: ${theme.colors.dark};
+  opacity: 0.4;
+`
 
 const Home = () => {
   const containerRef = useRef()
   const { state: { scroll: { position } }, dispatch } = useContext(store)
+  const [isLeftEnd, setIsLeftEnd] = useState(true)
+  const [isRightEnd, setIsRightEnd] = useState(false)
+  const { width } = useWindowSize()
 
   const {
     fetchMore,
@@ -61,14 +76,29 @@ const Home = () => {
   }, [dispatch])
 
   const handleContainerScroll = ({ target }) => {
-    if (loading || !next) return
-
-    // if scrolled more than 99% of container width then fetchmore
     const scrollLeftMax = target.scrollWidth - target.clientWidth
+
+    // detecting position
+    if (target.scrollLeft === 0) setIsLeftEnd(true)
+    else setIsLeftEnd(false)
+    if (target.scrollLeft >= scrollLeftMax) setIsRightEnd(true)
+    else setIsRightEnd(false)
+
+    // infinite scroll
+    if (loading || !next) return
+    // if scrolled more than 99% of container width then fetchmore
     if (target.scrollLeft / scrollLeftMax >= 0.99) fetchMore({
       variables: {
         offset: items.length
       }
+    })
+  }
+
+  const scrollByButton = (direction) => (e) => {
+    containerRef.current?.scrollTo({
+      top: 0,
+      left: containerRef.current.scrollLeft + (direction === 'left' ? width * -1 : width),
+      behavior: 'smooth'
     })
   }
 
@@ -86,6 +116,20 @@ const Home = () => {
       onScroll={handleContainerScroll}
     >
       {renderFieldByFourPokemon}
+
+      {
+        !isLeftEnd &&
+        <button css={[cssButtonScroll, { left: '1.6rem' }]} onClick={scrollByButton('left')}>
+          <LeftArrow height={60} width="auto" />
+        </button>
+      }
+
+      {
+        (!isRightEnd || next) &&
+        <button css={[cssButtonScroll, { right: '1.6rem' }]} onClick={scrollByButton('right')}>
+          <RightArrow height={60} width="auto" />
+        </button>
+      }
 
       {
         (loading && networkStatus === NetworkStatus.fetchMore) &&

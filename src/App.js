@@ -40,11 +40,11 @@ const App = () => {
                   hideProgressBar
                   position="top-center"
                   toastClassName={css`
-                  font-family: "Press Start 2P", monospace;
-                  background: ${theme.colors.white};
-                  color: ${theme.colors.gray};
-                  ${cssPixelBorder(theme.colors.white)};
-                `}
+                    font-family: "Press Start 2P", monospace;
+                    background: ${theme.colors.white};
+                    color: ${theme.colors.gray};
+                    ${cssPixelBorder(theme.colors.white)};
+                  `}
                 />
               )}
             </ClassNames>

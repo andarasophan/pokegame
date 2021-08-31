@@ -70,6 +70,7 @@ const Pokemon = ({
       ref={pokemonRef}
       css={css`
         position: relative;
+        display: flex;
         &:not(:last-child) {
           margin-right: 12rem;
         }

@@ -72,7 +72,7 @@ const Pokemon = ({ pokemon }) => {
           padding: 0 1.6rem;
           width: calc(100vw - 2 * 1.6rem - 2 * ${modalPadding} - 2 * ${pixelBorderWidth});
           max-width: 600px;
-          max-height: calc(100vh - 2 * ${cardModalPadding} - 2 * ${modalPadding} - 2 * ${pixelBorderWidth} - ${headerCardHeight});
+          max-height: calc(100vh - 21rem);
           overflow: auto;
           display: flex;
           flex-wrap: wrap;

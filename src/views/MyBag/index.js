@@ -21,7 +21,7 @@ const MyBag = () => {
         css={css`
           margin: auto;
           height: calc(100vh - 2 * ${modalPadding});
-          max-width: 500px;
+          max-width: 700px;
           background-color: ${theme.colors.white};
           ${cssPixelBorder(theme.colors.gray)};
         `}

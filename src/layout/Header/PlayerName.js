@@ -56,7 +56,7 @@ const View = ({ onClickEdit, name }) => (
     }
   `}>
     <p>{name}</p>
-    <button onClick={onClickEdit}><PencilIcon size={24} /></button>
+    <button aria-label="edit name" onClick={onClickEdit}><PencilIcon size={24} /></button>
   </div>
 )
 

@@ -76,7 +76,7 @@ const Pokemon = ({
         }
       `}
     >
-      <button css={cssPokemon} onClick={() => setShowModal(true)}>
+      <button aria-label={name} css={cssPokemon} onClick={() => setShowModal(true)}>
         <PokemonImage image={image} />
       </button>
 

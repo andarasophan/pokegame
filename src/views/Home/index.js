@@ -119,14 +119,14 @@ const Home = () => {
 
       {
         !isLeftEnd &&
-        <button css={[cssButtonScroll, { left: '1.6rem' }]} onClick={scrollByButton('left')}>
+        <button aria-label="scroll left" css={[cssButtonScroll, { left: '1.6rem' }]} onClick={scrollByButton('left')}>
           <LeftArrow height={60} width="auto" />
         </button>
       }
 
       {
         (!isRightEnd || next) &&
-        <button css={[cssButtonScroll, { right: '1.6rem' }]} onClick={scrollByButton('right')}>
+        <button aria-label="scroll right" css={[cssButtonScroll, { right: '1.6rem' }]} onClick={scrollByButton('right')}>
           <RightArrow height={60} width="auto" />
         </button>
       }

@@ -42,6 +42,7 @@ const cssButton = (variant) => css`
 `
 
 const Button = ({
+  ariaLabel = 'button',
   href,
   externalLink,
   onClick,
@@ -59,6 +60,7 @@ const Button = ({
 
   return (
     <ActionTag
+      aria-label={ariaLabel}
       css={cssButton(variant)}
       onClick={handleOnClick}
       to={href}
